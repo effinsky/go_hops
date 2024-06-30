@@ -39,6 +39,7 @@ without hopping on an occupied square. Otherwise, the text 'Optimal solution tak
 N is the number of hops needed to get from start to finish point.
 
 ### Sample Input
+```
 2
 5 5
 4 0 4 4
@@ -49,6 +50,7 @@ N is the number of hops needed to get from start to finish point.
 2
 1 1 0 2
 0 2 1 1
+```
 
 ### Sample Output
 Optimal solution takes 7 hops.
