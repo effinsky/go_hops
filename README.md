@@ -24,6 +24,7 @@ you can get from S to F. The hopper starts with initial speed (0,0) and he does 
 speed when he arrives at F.
 
 ### Input
+
 The first line contains the number of test cases (N) your program has to process. Each test case
 consists of a first line containing the width X (1 <= X <= 30) and height Y (1 <= Y <= 30) of the grid.
 Next is a line containing four integers separated by blanks, of which the first two indicate the start
@@ -34,11 +35,13 @@ integers: x1, x2, y1 and y2, (0 <= x1 <= x2 < X, 0 <= y1 <= y2 < Y), meaning tha
 x1 <= x <= x2 and y1 <= y <= y2 are occupied. The start point will never be occupied.
 
 ### Output
+
 The string 'No solution.' if there is no way the hopper can reach the finish point from the start point
 without hopping on an occupied square. Otherwise, the text 'Optimal solution takes N hops.', where
 N is the number of hops needed to get from start to finish point.
 
 ### Sample Input
+
 ```
 2
 5 5
@@ -53,5 +56,8 @@ N is the number of hops needed to get from start to finish point.
 ```
 
 ### Sample Output
+
+```
 Optimal solution takes 7 hops.
 No solution.
+```
