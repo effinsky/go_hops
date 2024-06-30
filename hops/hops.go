@@ -154,11 +154,11 @@ func generateNewStates(
 
 func isValidPosition(newPosX int, newPosY int, g Grid) bool {
 	return isPositionWithinBounds(newPosX, newPosY, g.Width, g.Height) &&
-		isCellNotOccupied(newPosX, newPosY, g)
+		!isCellOccupied(newPosX, newPosY, g)
 }
 
-func isCellNotOccupied(newPosX int, newPosY int, g Grid) bool {
-	return g.Cells[newPosY][newPosX] == 0
+func isCellOccupied(newPosX int, newPosY int, g Grid) bool {
+	return g.Cells[newPosY][newPosX] == 1
 }
 
 func isPositionWithinBounds(posX, posY, gridWidth, gridHeight int) bool {
