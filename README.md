@@ -1,4 +1,4 @@
-## recruitment task description:
+## task description:
 
 Many boring math classes have been spent playing Race Tracks, where two players have to maneuver
 their cars on a race track drawn on a piece of paper, while their cars can only accelerate by a limited
