@@ -103,8 +103,10 @@ func breadthFirstSearch(start Point, finish Point, grid Grid) string {
 	queue := list.New()
 	queue.PushBack(initState)
 
-	visited := make(map[HopperState]bool)
-	visited[initState] = true
+	// Since we have no set to work with in stdlib, I'd hack it with an empty
+	// struct map.
+	visited := make(map[HopperState]struct{})
+	visited[initState] = struct{}{}
 
 	for queue.Len() > 0 {
 		cs := queue.Remove(queue.Front()).(HopperState)
@@ -113,8 +115,8 @@ func breadthFirstSearch(start Point, finish Point, grid Grid) string {
 		}
 
 		for _, ns := range generateNewStates(cs, directions, maxSpeed, grid) {
-			if !visited[ns] {
-				visited[ns] = true
+			if _, ok := visited[ns]; !ok {
+				visited[ns] = struct{}{}
 				queue.PushBack(ns)
 			}
 		}
@@ -131,7 +133,7 @@ func generateNewStates(
 	maxV int,
 	g Grid,
 ) []HopperState {
-	var newStates []HopperState
+	newStates := make([]HopperState, 0)
 	for _, dvx := range directions {
 		for _, dvy := range directions {
 			newVx, newVy := currState.VX+dvx, currState.VY+dvy
