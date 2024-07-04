@@ -93,35 +93,35 @@ func MustParseInput(input string) []TestCase {
 			obstacleCoords := strings.Fields(lines[idx])
 			if len(obstacleCoords) != 4 {
 				panic(fmt.Errorf(
-					"bad input for obstacle at test case %d, obstacle %d",
+					"parsing obstacle at test case %d, obstacle %d",
 					i+1, j+1,
 				))
 			}
 			x1, err := strconv.Atoi(obstacleCoords[0])
 			if err != nil {
 				panic(fmt.Errorf(
-					"invalid obstacle x1 at test case %d, obstacle %d: %w",
+					" parsing obstacle x1 at test case %d, obstacle %d: %w",
 					i+1, j+1, err,
 				))
 			}
 			x2, err := strconv.Atoi(obstacleCoords[1])
 			if err != nil {
 				panic(fmt.Errorf(
-					"invalid obstacle x2 at test case %d, obstacle %d: %w",
+					" parsing obstacle x2 at test case %d, obstacle %d: %w",
 					i+1, j+1, err,
 				))
 			}
 			y1, err := strconv.Atoi(obstacleCoords[2])
 			if err != nil {
 				panic(fmt.Errorf(
-					"invalid obstacle y1 at test case %d, obstacle %d: %w",
+					" parsing obstacle y1 at test case %d, obstacle %d: %w",
 					i+1, j+1, err,
 				))
 			}
 			y2, err := strconv.Atoi(obstacleCoords[3])
 			if err != nil {
 				panic(fmt.Errorf(
-					"invalid obstacle y2 at test case %d, obstacle %d: %w",
+					"parsing obstacle y2 at test case %d, obstacle %d: %w",
 					i+1, j+1, err,
 				))
 			}

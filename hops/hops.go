@@ -49,8 +49,7 @@ type (
 	}
 )
 
-// MinHops parses the input string, processes each test case, and returns the
-// results.
+// MinHops processes each test case using bfs search and returns the results.
 func MinHops(testcases ...TestCase) []string {
 	var results []string
 	for _, tc := range testcases {
@@ -80,18 +79,19 @@ func makeGrid(width int, height int, obs []ObstacleBounds) Grid {
 	}
 }
 
-// breadthFirstSearch does a breadth-first search to find the shortest path
-// from the start to the finish point on the given grid.
+// breadthFirstSearch does a bfs to find the shortest path from the start to
+// the finish point on the given grid.
 //
-// The function initializes the search with a starting state. This initial
-// state is added to a queue. A map is used to keep track of visited states
-// to prevent redundant/repeated processing of same states.
+// The function initializes the search with a starting state that is then added
+// to a queue. A map is used to keep track of visited states to prevent
+// redundant/repeated processing.
 //
-// State processing happens through a loop until there are no more  hopper
-// states in the queue.
+// State processing happens in a loop until there are no more hopper states
+// in the queue.
 //  1. We remove the frontmost state from the queue and check if its
-//     position matches the finish. If so, we return the optimal hops msg.
-//  2. If finish is not reached, we generate all new possible states
+//     position matches the finish position. If so, we return the optimal hops
+//     message.
+//  2. If finish position is not reached, we generate all new possible states
 //     from the current state.
 //  3. For each new state generated, if it has not been visited, it is marked
 //     as visited and added to the queue for further processing.
@@ -103,7 +103,7 @@ func breadthFirstSearch(start Point, finish Point, grid Grid) string {
 	queue := list.New()
 	queue.PushBack(initState)
 
-	// Since we have no set to work with in stdlib, I'd hack it with an empty
+	// Since we have no set to work with in stdlib, using map state to empty
 	// struct map.
 	visited := make(map[HopperState]struct{})
 	visited[initState] = struct{}{}
