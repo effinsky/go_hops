@@ -29,22 +29,22 @@ func MustParseInput(input string) []TestCase {
 	idx := 1 // Start from line 2.
 	var testCases []TestCase
 
-	for i := range numTestCases {
+	for tcIdx := range numTestCases {
 		// Get grid dimensions for the case.
 		dimensions := strings.Fields(lines[idx])
 		if len(dimensions) != 2 {
-			panic(fmt.Errorf("parsing grid dimensions at test case %d", i+1))
+			panic(fmt.Errorf("parsing grid dimensions at test case %d", tcIdx+1))
 		}
 		gridWidth, err := strconv.Atoi(dimensions[0])
 		if err != nil {
 			panic(fmt.Errorf(
-				"parsing grid width at test case %d: %w", i+1, err,
+				"parsing grid width at test case %d: %w", tcIdx+1, err,
 			))
 		}
 		gridHeight, err := strconv.Atoi(dimensions[1])
 		if err != nil {
 			panic(fmt.Errorf(
-				"parsing grid height at test case %d: %w", i+1, err,
+				"parsing grid height at test case %d: %w", tcIdx+1, err,
 			))
 		}
 		idx++
@@ -53,25 +53,25 @@ func MustParseInput(input string) []TestCase {
 		points := strings.Fields(lines[idx])
 		if len(points) != 4 {
 			panic(fmt.Errorf(
-				"parsing start/finish points at test case %d", i+1,
+				"parsing start/finish points at test case %d", tcIdx+1,
 			))
 		}
 		startX, err := strconv.Atoi(points[0])
 		if err != nil {
-			panic(fmt.Errorf("parsing start X at test case %d: %w", i+1, err))
+			panic(fmt.Errorf("parsing start X at test case %d: %w", tcIdx+1, err))
 		}
 		startY, err := strconv.Atoi(points[1])
 		if err != nil {
-			panic(fmt.Errorf("parsing start Y at test case %d: %w", i+1, err))
+			panic(fmt.Errorf("parsing start Y at test case %d: %w", tcIdx+1, err))
 		}
 		finishX, err := strconv.Atoi(points[2])
 		if err != nil {
-			panic(fmt.Errorf("parsing finish X at test case %d: %w", i+1, err))
+			panic(fmt.Errorf("parsing finish X at test case %d: %w", tcIdx+1, err))
 		}
 		finishY, err := strconv.Atoi(points[3])
 		if err != nil {
 			panic(fmt.Errorf(
-				"parsing finish Y at test case %d: %w", i+1, err,
+				"parsing finish Y at test case %d: %w", tcIdx+1, err,
 			))
 		}
 		start := Point{X: startX, Y: startY}
@@ -82,47 +82,47 @@ func MustParseInput(input string) []TestCase {
 		numObstacles, err := strconv.Atoi(lines[idx])
 		if err != nil {
 			panic(fmt.Errorf(
-				"parsing number of obstacles at test case %d: %w", i+1, err,
+				"parsing number of obstacles at test case %d: %w", tcIdx+1, err,
 			))
 		}
 		idx++
 
 		// Get obstacle mapping from remaining lines
 		var obstacleBounds []ObstacleBounds
-		for j := range numObstacles {
+		for obsIdx := range numObstacles {
 			obstacleCoords := strings.Fields(lines[idx])
 			if len(obstacleCoords) != 4 {
 				panic(fmt.Errorf(
 					"parsing obstacle at test case %d, obstacle %d",
-					i+1, j+1,
+					tcIdx+1, obsIdx+1,
 				))
 			}
 			x1, err := strconv.Atoi(obstacleCoords[0])
 			if err != nil {
 				panic(fmt.Errorf(
 					" parsing obstacle x1 at test case %d, obstacle %d: %w",
-					i+1, j+1, err,
+					tcIdx+1, obsIdx+1, err,
 				))
 			}
 			x2, err := strconv.Atoi(obstacleCoords[1])
 			if err != nil {
 				panic(fmt.Errorf(
 					" parsing obstacle x2 at test case %d, obstacle %d: %w",
-					i+1, j+1, err,
+					tcIdx+1, obsIdx+1, err,
 				))
 			}
 			y1, err := strconv.Atoi(obstacleCoords[2])
 			if err != nil {
 				panic(fmt.Errorf(
 					" parsing obstacle y1 at test case %d, obstacle %d: %w",
-					i+1, j+1, err,
+					tcIdx+1, obsIdx+1, err,
 				))
 			}
 			y2, err := strconv.Atoi(obstacleCoords[3])
 			if err != nil {
 				panic(fmt.Errorf(
 					"parsing obstacle y2 at test case %d, obstacle %d: %w",
-					i+1, j+1, err,
+					tcIdx+1, obsIdx+1, err,
 				))
 			}
 			obstacleBounds = append(obstacleBounds, ObstacleBounds{

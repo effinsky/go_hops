@@ -13,13 +13,7 @@ const (
 )
 
 type (
-	Grid struct {
-		Cells  Cells
-		Width  int
-		Height int
-	}
-
-	Cells [][]int
+	Grid [][]int
 
 	HopperState struct {
 		Pos  Point
@@ -61,22 +55,18 @@ func MinHops(testcases ...TestCase) []string {
 }
 
 func makeGrid(width int, height int, obs []ObstacleBounds) Grid {
-	cells := make(Cells, height)
-	for i := range cells {
-		cells[i] = make([]int, width) // Explicitly initialize the grid to 0s.
+	g := make(Grid, height)
+	for i := range g {
+		g[i] = make([]int, width) // Explicitly initialize the grid to 0s.
 	}
 	for _, ob := range obs {
 		for x := ob.Left; x <= ob.Right; x++ {
 			for y := ob.Upper; y <= ob.Lower; y++ {
-				cells[y][x] = 1
+				g[y][x] = 1
 			}
 		}
 	}
-	return Grid{
-		Cells:  cells,
-		Width:  width,
-		Height: height,
-	}
+	return g
 }
 
 // breadthFirstSearch does a bfs to find the shortest path from the start to
@@ -109,12 +99,14 @@ func breadthFirstSearch(start Point, finish Point, grid Grid) string {
 	visited[initState] = struct{}{}
 
 	for queue.Len() > 0 {
+		// Skipping conversion error check.
 		cs := queue.Remove(queue.Front()).(HopperState)
 		if cs.Pos == finish {
 			return fmt.Sprintf(optimalSolution, cs.hops)
 		}
 
 		for _, ns := range generateNewStates(cs, directions, maxSpeed, grid) {
+			// If not visited, now visited and add to enqueue.
 			if _, ok := visited[ns]; !ok {
 				visited[ns] = struct{}{}
 				queue.PushBack(ns)
@@ -133,6 +125,9 @@ func generateNewStates(
 	maxV int,
 	g Grid,
 ) []HopperState {
+	// If within given directions we move at a valid velocity (slowing down,
+	// maintaining speed, speeding up), and then land on a valid position
+	// (within bounds and not on an obstacle), then we have a new valid state.
 	newStates := make([]HopperState, 0)
 	for _, dvx := range directions {
 		for _, dvy := range directions {
@@ -155,12 +150,17 @@ func generateNewStates(
 }
 
 func isValidPosition(newPosX int, newPosY int, g Grid) bool {
-	return isPositionWithinBounds(newPosX, newPosY, g.Width, g.Height) &&
+	return isPositionWithinBounds(
+		newPosX,
+		newPosY,
+		len(g[0]), // grid width
+		len(g),    // grid height
+	) &&
 		!isCellOccupied(newPosX, newPosY, g)
 }
 
 func isCellOccupied(newPosX int, newPosY int, g Grid) bool {
-	return g.Cells[newPosY][newPosX] == 1
+	return g[newPosY][newPosX] == 1
 }
 
 func isPositionWithinBounds(posX, posY, gridWidth, gridHeight int) bool {
